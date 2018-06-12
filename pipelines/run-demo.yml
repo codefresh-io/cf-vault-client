@@ -8,4 +8,4 @@ steps:
   run_vault_demo:
     image: ${{build}}
     commands:
-      - bash -c "bin/demo"
+      - bash -c "/opt/codefresh/bin/demo"
