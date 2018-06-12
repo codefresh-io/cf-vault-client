@@ -16,8 +16,11 @@ echo "Root token is: $ROOT_TOKEN"
 msg "Printing vault status"
 vault status
 
+# Defining policy names
+POLICY_NAME_1=read-write-policy
+
 msg "Defining read-write policy"
-vault policy-write read-write-policy << EOF
+vault policy-write $POLICY_NAME_1 - << EOF
 # This section grants all access on "secret/*". Further restrictions can be
 # applied to this broad policy, as shown below.
 path "secret/*" {
@@ -30,6 +33,8 @@ path "secret/super-secret" {
   capabilities = ["deny"]
 }
 EOF
-
+if [ $? == 0 ]; then
+  msg Policy with the $POLICY_NAME_1 is successfully created 
+fi
 msg "List policies"
 vault policy list
