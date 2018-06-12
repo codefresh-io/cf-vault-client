@@ -11,10 +11,17 @@ err() { echo -e "\e[31mERR [$(date +%F_%H-%M-%S)] ---> $1\e[0m" ; exit 1; }
 #: "${ROOT_TOKEN:?Need to set ROOT_TOKEN non-empty}"
 
 echo "Vault URL is: $VAULT_ADDR"
-echo "Root token is: $ROOT_TOKEN"
+# echo "Root token is: $ROOT_TOKEN"
 
 msg "Printing vault status"
 vault status
+
+msg "Authenticating Vault using that token grants us root access to Vault"
+vault login $ROOT_TOKEN
+
+if [ $? == 0 ]; then
+  msg You are successfully authenticated with root token
+fi
 
 # Defining policy names
 POLICY_NAME_1=read-write-policy
