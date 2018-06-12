@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+msg() { echo -e "\e[32mINFO [$(date +%F_%H-%M-%S)] ---> $1\e[0m"; }
+warning() { echo -e "\e[33mWARNING [$(date +%F_%H-%M-%S)] ---> $1\e[0m"; }
+err() { echo -e "\e[31mERR [$(date +%F_%H-%M-%S)] ---> $1\e[0m" ; exit 1; }
+
+#### Checking  
+[ -z "$VAULT_ADDR" ] && err "Need to set VAULT_ADDR"
+[ -z "$ROOT_TOKEN" ] && err "Need to set ROOT_TOKEN"
+#: "${ROOT_TOKEN:?Need to set ROOT_TOKEN non-empty}"
+
+echo 'Vault URL is: $VAULT_ADDR'
+echo 'Root token is: $ROOT_TOKEN'
