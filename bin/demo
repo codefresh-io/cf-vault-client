@@ -20,7 +20,7 @@ vault status
 POLICY_NAME_1=read-write-policy
 
 msg "Defining read-write policy"
-vault policy-write $POLICY_NAME_1 - << EOF
+vault policy write $POLICY_NAME_1 - << EOF
 # This section grants all access on "secret/*". Further restrictions can be
 # applied to this broad policy, as shown below.
 path "secret/*" {
