@@ -5,7 +5,7 @@ steps:
   build:
     type: build
     image_name: codefresh/cf-vault-demo
-  deploy_to_saas_environment:
+  run_vault_demo:
     image: ${{build}}
     commands:
       - bash -c "bin/demo"
