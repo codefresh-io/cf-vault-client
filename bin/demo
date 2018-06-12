@@ -15,3 +15,21 @@ echo "Root token is: $ROOT_TOKEN"
 
 msg "Printing vault status"
 vault status
+
+msg "Defining read-write policy"
+vault policy-write read-write-policy << EOF
+# This section grants all access on "secret/*". Further restrictions can be
+# applied to this broad policy, as shown below.
+path "secret/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+
+# Even though we allowed secret/*, this line explicitly denies
+# secret/super-secret. This takes precedence.
+path "secret/super-secret" {
+  capabilities = ["deny"]
+}
+EOF
+
+msg "List policies"
+vault policy list
