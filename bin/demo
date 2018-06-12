@@ -20,7 +20,7 @@ msg "Authenticating Vault using that token grants us root access to Vault"
 vault login $ROOT_TOKEN
 
 if [ $? == 0 ]; then
-  msg You are successfully authenticated with root token
+  msg "You are successfully authenticated with root token"
 fi
 
 # Defining policy names
@@ -41,7 +41,7 @@ path "secret/super-secret" {
 }
 EOF
 if [ $? == 0 ]; then
-  msg Policy with the $POLICY_NAME_1 is successfully created 
+  msg "Policy with the $POLICY_NAME_1 is successfully created "
 fi
 msg "List policies"
 vault policy list
