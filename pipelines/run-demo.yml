@@ -4,8 +4,8 @@ version: '1.0'
 steps:
   build:
     type: build
-    image_name: codefresh/cf-vault-demo
-  run_vault_demo:
+    image_name: codefresh/cf-vault-client
+  run_vault_client:
     image: ${{build}}
     commands:
-      - bash -c "/opt/codefresh/bin/demo"
+      - bash -c "/opt/codefresh/bin/client"

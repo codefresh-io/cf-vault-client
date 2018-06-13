@@ -2,7 +2,7 @@
 
 FROM vault:0.10.2 AS vault
 
-#-----Demo------#
+#-----Vault client image------#
 
 FROM alpine:3.7
 
