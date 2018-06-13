@@ -2,7 +2,7 @@
 set -e
 
 msg() { echo -e "\e[32mINFO [$(date +%F_%H-%M-%S)] ---> $1\e[0m"; }
-warning() { echo -e "\e[33mWARNING [$(date +%F_%H-%M-%S)] ---> $1\e[0m"; }
+yellow() { echo -e "\e[33m$1\e[0m"; }
 err() { echo -e "\e[31mERR [$(date +%F_%H-%M-%S)] ---> $1\e[0m" ; exit 1; }
 
 #### Checking  
@@ -22,6 +22,12 @@ vault login $ROOT_TOKEN
 if [ $? == 0 ]; then
   msg "You are successfully authenticated with root token"
 fi
+
+msg "Let\'s write several secrets. The first secret is a pair" yellow "key1=secret1" msg "to the path" yellow "secret/first"
+vault kv put secret/first key1=secret1
+
+msg "The second secret is a pair" yellow "key2=secret2" msg "to the path" yellow "secret/super-secret"
+vault kv put secret/super-secret key2=secret2
 
 # Defining policy names
 POLICY_NAME_1=read-write-policy
@@ -45,3 +51,8 @@ if [ $? == 0 ]; then
 fi
 msg "List policies"
 vault policy list
+
+msg "Creating token and associating it with" yellow "$POLICY_NAME_1" msg "policy"
+vault token create -policy $POLICY_NAME_1
+
+#msg "Authenticating with newly created token"
