@@ -23,11 +23,21 @@ if [ $? == 0 ]; then
   msg "You are successfully authenticated with root token"
 fi
 
-msg "Let\'s write several secrets. The first secret is a pair" yellow "key1=secret1" msg "to the path" yellow "secret/first"
-vault kv put secret/first key1=secret1
+# Defining secret paths
+path1=secret/first
+path2=secret/super-secret
 
-msg "The second secret is a pair" yellow "key2=secret2" msg "to the path" yellow "secret/super-secret"
-vault kv put secret/super-secret key2=secret2
+msg "Let's write several secrets. The first secret is a pair key1=secret1 to the path secret/first"
+vault kv put $path1 key1=secret1
+
+msg "The second secret is a pair key2=secret2 to the path secret/super-secret"
+vault kv put $path2 key2=secret2
+
+msg "Reading secret/first"
+vault kv get $path1
+
+msg "Reading secret/super-secret"
+vault kv get $path2
 
 # Defining policy names
 POLICY_NAME_1=read-write-policy
@@ -52,7 +62,14 @@ fi
 msg "List policies"
 vault policy list
 
-msg "Creating token and associating it with" yellow "$POLICY_NAME_1" msg "policy"
+msg "Creating token and associating it with '$POLICY_NAME_1' policy"
 vault token create -policy $POLICY_NAME_1
 
-#msg "Authenticating with newly created token"
+msg "Deleting secret '$path1'"
+vault kv delete $path1
+
+msg "Deleting secret '$path2'"
+vault kv delete $path2
+
+msg "Deleteting policy '$POLICY_NAME_1'"
+vault policy delete $POLICY_NAME_1
