@@ -65,6 +65,9 @@ vault policy list
 msg "Creating token and associating it with '$POLICY_NAME_1' policy"
 vault token create -policy $POLICY_NAME_1
 
+msg "Reading the content of the '$POLICY_NAME_1' policy"
+vault policy read $POLICY_NAME_1
+
 msg "Deleting secret '$path1'"
 vault kv delete $path1
 
